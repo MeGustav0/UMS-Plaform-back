@@ -7,6 +7,9 @@ app.use(cors({
   origin: ["https://usm-platform-d16ff.web.app"],
   credentials: true,
 }));
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
+
 app.use(express.json());
 
 // Роуты
