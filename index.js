@@ -3,10 +3,10 @@ const cors = require("cors");
 require("dotenv").config();
 
 const app = express();
-app.use(cors({
+const corsOptions = {
   origin: ["https://usm-platform-d16ff.web.app"],
   credentials: true,
-}));
+};
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
 
