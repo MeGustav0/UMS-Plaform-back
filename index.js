@@ -3,18 +3,22 @@ require("dotenv").config();
 
 const app = express();
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://usm-platform-d16ff.web.app");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.header("Access-Control-Allow-Credentials", "true");
+const cors = require("cors");
 
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(204);
-  }
+const allowedOrigins = [
+  "https://usm-platform-d16ff.web.app",
+  "http://localhost:5173"
+];
 
-  next();
-});
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error("Not allowed by CORS"));
+  },
+  credentials: true
+}));
 
 app.use(express.json());
 
