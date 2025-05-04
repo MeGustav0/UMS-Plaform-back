@@ -16,6 +16,8 @@ router.get("/", async (req, res) => {
 
     snapshot.forEach((doc) => {
       const data = doc.data();
+      console.log("org data:", data);
+    
       const isMember = data.members?.some((m) => m.userId === memberId);
       if (isMember) {
         result.push(data);
@@ -23,6 +25,8 @@ router.get("/", async (req, res) => {
     });
 
     res.status(200).json(result);
+    console.error("memberId:", memberId);
+    console.error("snapshot exists:", snapshot.size);
   } catch (error) {
     console.error("Ошибка при получении организаций:", error);
     res.status(500).json({ error: "Ошибка при получении организаций" });
